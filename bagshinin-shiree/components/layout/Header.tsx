@@ -9,7 +9,7 @@ type HeaderProps = {
 
 export function Header({ title = "Багшийн Ширээ", onMenuClick }: HeaderProps) {
   return (
-    <header className="md:hidden sticky top-0 z-20 flex h-14 items-center gap-2 border-b border-primary-soft/40 bg-white px-3">
+    <header className="md:hidden sticky top-0 z-20 flex h-14 items-center gap-2 border-b border-[var(--border-soft)] bg-[var(--card-bg)] px-3">
       <button
         type="button"
         onClick={onMenuClick}

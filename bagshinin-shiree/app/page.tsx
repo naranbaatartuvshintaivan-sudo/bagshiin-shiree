@@ -26,7 +26,7 @@ export default async function DashboardPage() {
           <h1 className="text-2xl md:text-3xl font-bold text-primary-deep">
             Багшийн Ширээ
           </h1>
-          <p className="mt-1 text-sm text-ink/60">Монгол хэлний багш</p>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">Монгол хэлний багш</p>
         </div>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -63,26 +63,26 @@ export default async function DashboardPage() {
             Сүүлийн хичээлүүд
           </h2>
           {recent.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-primary-soft bg-white p-8 text-center text-sm text-ink/60">
+            <div className="rounded-2xl border border-dashed border-[var(--border-soft)] bg-[var(--card-bg)] p-8 text-center text-sm text-[var(--text-muted)]">
               Одоогоор хичээл байхгүй байна.
             </div>
           ) : (
-            <ul className="divide-y divide-primary-soft/40 rounded-2xl border border-primary-soft/40 bg-white">
+            <ul className="divide-y divide-[var(--border-soft)] rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)]">
               {recent.map((l) => (
                 <li key={l.id}>
                   <Link
                     href={`/lesson/${l.id}`}
-                    className="flex items-center justify-between gap-3 p-4 hover:bg-primary-soft/20"
+                    className="flex items-center justify-between gap-3 p-4 hover:bg-primary-soft/20 dark:hover:bg-primary-soft/10"
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       {l.grade && (
                         <Badge variant="primary">{formatClassName(l.grade.grade, l.grade.label)}</Badge>
                       )}
-                      <span className="truncate font-medium text-ink">
+                      <span className="truncate font-medium text-[var(--text-ink)]">
                         {l.title}
                       </span>
                     </div>
-                    <span className="shrink-0 text-xs text-ink/50">
+                    <span className="shrink-0 text-xs text-[var(--text-muted)]">
                       {formatShortDate(l.lesson_date || l.created_at)}
                     </span>
                   </Link>

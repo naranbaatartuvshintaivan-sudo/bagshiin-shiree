@@ -2,7 +2,14 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BookOpen, Settings, X } from "lucide-react"
+import {
+  BookOpen,
+  GraduationCap,
+  Home,
+  PenTool,
+  Settings,
+  X,
+} from "lucide-react"
 
 import { cn, formatClassName } from "@/lib/utils"
 import type { GradeWithCount } from "@/lib/supabase/types"
@@ -12,6 +19,40 @@ type SidebarProps = {
   open: boolean
   onClose: () => void
 }
+
+type NavItem = {
+  href: string
+  label: string
+  icon: typeof Home
+  isActive: (pathname: string) => boolean
+}
+
+const NAV: NavItem[] = [
+  {
+    href: "/",
+    label: "Нүүр",
+    icon: Home,
+    isActive: (p) => p === "/",
+  },
+  {
+    href: "/",
+    label: "Ангиуд",
+    icon: GraduationCap,
+    isActive: (p) => p.startsWith("/grade/") || p.startsWith("/lesson/"),
+  },
+  {
+    href: "/boards",
+    label: "Самбар",
+    icon: PenTool,
+    isActive: (p) => p === "/boards" || p.startsWith("/board/"),
+  },
+  {
+    href: "/settings",
+    label: "Тохиргоо",
+    icon: Settings,
+    isActive: (p) => p === "/settings",
+  },
+]
 
 export function Sidebar({ grades, open, onClose }: SidebarProps) {
   const pathname = usePathname()
@@ -28,7 +69,7 @@ export function Sidebar({ grades, open, onClose }: SidebarProps) {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-primary-deep text-white",
+          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-[var(--sidebar-bg)] text-white",
           "transition-transform duration-200 md:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full"
         )}
@@ -50,7 +91,33 @@ export function Sidebar({ grades, open, onClose }: SidebarProps) {
           </button>
         </div>
 
-        <div className="px-3 pb-2 pt-2 text-[11px] uppercase tracking-wider text-white/50">
+        <nav className="px-2">
+          <ul className="space-y-0.5">
+            {NAV.map((item) => {
+              const Icon = item.icon
+              const active = item.isActive(pathname ?? "")
+              return (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={onClose}
+                    className={cn(
+                      "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
+                      active
+                        ? "bg-primary text-white"
+                        : "text-white/85 hover:bg-white/10"
+                    )}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {item.label}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
+
+        <div className="px-3 pb-2 pt-4 text-[11px] uppercase tracking-wider text-white/50">
           Ангиуд
         </div>
         <nav className="flex-1 overflow-y-auto px-2">
@@ -87,22 +154,6 @@ export function Sidebar({ grades, open, onClose }: SidebarProps) {
             })}
           </ul>
         </nav>
-
-        <div className="border-t border-white/10 p-3">
-          <Link
-            href="/settings"
-            onClick={onClose}
-            className={cn(
-              "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
-              pathname === "/settings"
-                ? "bg-primary text-white"
-                : "text-white/85 hover:bg-white/10"
-            )}
-          >
-            <Settings className="h-4 w-4" />
-            Тохиргоо
-          </Link>
-        </div>
       </aside>
     </>
   )

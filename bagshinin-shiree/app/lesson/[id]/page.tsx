@@ -35,7 +35,7 @@ export default async function LessonPage(props: {
           <div className="flex items-center gap-2">
             <Link
               href={`/lesson/${lesson.id}/edit`}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-primary-deep px-3 py-1.5 text-xs font-medium text-primary-deep hover:bg-primary-soft/30"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-primary-deep dark:border-primary-soft/40 px-3 py-1.5 text-xs font-medium text-primary-deep dark:text-primary-soft hover:bg-primary-soft/30 dark:hover:bg-primary-soft/10"
             >
               <Pencil className="h-3.5 w-3.5" />
               Засах
@@ -57,18 +57,18 @@ export default async function LessonPage(props: {
             {lesson.title}
           </h1>
           {dateLabel && (
-            <div className="text-sm text-ink/60">{dateLabel}</div>
+            <div className="text-sm text-[var(--text-muted)]">{dateLabel}</div>
           )}
 
           {typeof lesson.content?.text === "string" && lesson.content.text.trim() && (
-            <div className="rounded-2xl border border-primary-soft/40 bg-white p-5">
+            <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
               <LessonContent content={lesson.content.text} />
             </div>
           )}
 
           {lesson.files.length > 0 && (
             <section className="space-y-2">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-ink/60">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                 Файлууд
               </h2>
               <FileGrid

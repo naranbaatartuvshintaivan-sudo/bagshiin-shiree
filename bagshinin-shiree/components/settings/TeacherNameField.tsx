@@ -43,7 +43,7 @@ export function TeacherNameField() {
           Хадгалах
         </button>
       </div>
-      <p className="text-xs text-ink/50">
+      <p className="text-xs text-[var(--text-muted)]">
         Зөвхөн энэ төхөөрөмжид хадгалагдана.
       </p>
     </div>

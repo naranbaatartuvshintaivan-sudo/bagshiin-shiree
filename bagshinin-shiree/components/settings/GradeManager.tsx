@@ -123,17 +123,17 @@ export function GradeManager({ initialGrades }: GradeManagerProps) {
                 setOverId(null)
               }}
               className={cn(
-                "flex items-center justify-between gap-3 rounded-xl border bg-white p-3 transition-colors",
-                overId === g.id ? "border-accent-orange" : "border-primary-soft/50"
+                "flex items-center justify-between gap-3 rounded-xl border bg-[var(--card-bg)] p-3 transition-colors",
+                overId === g.id ? "border-accent-orange" : "border-[var(--border-soft)]"
               )}
             >
               <div className="flex items-center gap-3">
-                <GripVertical className="h-4 w-4 cursor-grab text-ink/40" />
+                <GripVertical className="h-4 w-4 cursor-grab text-[var(--text-muted)]" />
                 <div>
-                  <div className="font-medium text-ink">
+                  <div className="font-medium text-[var(--text-ink)]">
                     {formatClassName(g.grade, g.label)}
                   </div>
-                  <div className="text-xs text-ink/50">
+                  <div className="text-xs text-[var(--text-muted)]">
                     {g.lesson_count} хичээл
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export function GradeManager({ initialGrades }: GradeManagerProps) {
                 className={cn(
                   "inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium",
                   hasLessons
-                    ? "cursor-not-allowed border-primary-soft/40 text-ink/30"
+                    ? "cursor-not-allowed border-[var(--border-soft)] text-[var(--text-muted)] opacity-60"
                     : "border-destructive/30 text-destructive hover:bg-destructive/10"
                 )}
               >
@@ -157,7 +157,7 @@ export function GradeManager({ initialGrades }: GradeManagerProps) {
         })}
       </ul>
 
-      <div className="rounded-xl border border-primary-soft/50 bg-white p-3 space-y-3">
+      <div className="rounded-xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-3 space-y-3">
         <Label>Шинэ анги нэмэх</Label>
         <div className="space-y-2">
           <div>

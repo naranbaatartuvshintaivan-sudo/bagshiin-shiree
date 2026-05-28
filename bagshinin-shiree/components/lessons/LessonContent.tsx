@@ -7,7 +7,7 @@ type LessonContentProps = {
 export function LessonContent({ content }: LessonContentProps) {
   const blocks = splitBlocks(content)
   return (
-    <div className="prose-content space-y-4 text-ink leading-relaxed">
+    <div className="prose-content space-y-4 text-[var(--text-ink)] leading-relaxed">
       {blocks.map((b, i) => renderBlock(b, i))}
     </div>
   )

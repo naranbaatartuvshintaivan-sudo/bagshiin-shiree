@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, Plus } from "lucide-react"
+import { ArrowLeft, Plus, Table } from "lucide-react"
 
 import { PageWrapper } from "@/components/layout/PageWrapper"
 import { LessonCard } from "@/components/lessons/LessonCard"
@@ -37,19 +37,28 @@ export default async function GradePage(props: {
             </h1>
             <Badge>{lessons.length} хичээл</Badge>
           </div>
-          <Link
-            href={`/lesson/new?grade=${grade.id}`}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-accent-orange px-3 py-2 text-sm font-semibold text-white hover:bg-accent-orange/90"
-          >
-            <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline">Шинэ хичээл</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/grade/${grade.id}/gradebook`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-soft)] px-3 py-2 text-sm font-medium text-primary-deep dark:text-primary-soft hover:bg-primary-soft/30 dark:hover:bg-primary-soft/10"
+            >
+              <Table className="h-4 w-4" />
+              <span className="hidden sm:inline">Дүнгийн дэвтэр</span>
+            </Link>
+            <Link
+              href={`/lesson/new?grade=${grade.id}`}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-accent-orange px-3 py-2 text-sm font-semibold text-white hover:bg-accent-orange/90"
+            >
+              <Plus className="h-4 w-4" />
+              <span className="hidden sm:inline">Шинэ хичээл</span>
+            </Link>
+          </div>
         </div>
 
         <div className="mt-6">
           {lessons.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-primary-soft bg-white p-10 text-center">
-              <p className="text-sm text-ink/60">
+            <div className="rounded-2xl border border-dashed border-[var(--border-soft)] bg-[var(--card-bg)] p-10 text-center">
+              <p className="text-sm text-[var(--text-muted)]">
                 Одоогоор хичээл байхгүй байна. Шинэ хичээл нэмнэ үү.
               </p>
               <Link

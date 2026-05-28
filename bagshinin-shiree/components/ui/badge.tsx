@@ -11,7 +11,7 @@ const badgeVariants = cva(
         default: "bg-accent-yellow text-primary-deep",
         primary: "bg-primary text-white",
         soft: "bg-primary-soft text-primary-deep",
-        outline: "border border-primary-soft text-primary-deep bg-white",
+        outline: "border border-[var(--border-soft)] text-primary-deep bg-[var(--card-bg)]",
         orange: "bg-accent-orange text-white",
         muted: "bg-muted text-ink/70",
       },

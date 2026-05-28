@@ -14,14 +14,14 @@ export function GradeCard({ grade }: GradeCardProps) {
   return (
     <Link
       href={`/grade/${grade.id}`}
-      className="group block rounded-2xl border-l-4 border-l-primary bg-white p-5 shadow-sm transition-all hover:border-l-accent-orange hover:shadow-md"
+      className="group block rounded-2xl border-l-4 border-l-primary bg-[var(--card-bg)] border border-[var(--border-soft)] p-5 shadow-sm transition-all hover:border-l-accent-orange hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="text-lg font-semibold text-primary-deep">
             {formatClassName(grade.grade, grade.label)}
           </div>
-          <div className="mt-1 flex items-center gap-3 text-sm text-ink/60">
+          <div className="mt-1 flex items-center gap-3 text-sm text-[var(--text-muted)]">
             <span className="inline-flex items-center gap-1">
               <BookOpen className="h-3.5 w-3.5" />
               {grade.lesson_count} хичээл

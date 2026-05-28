@@ -54,3 +54,38 @@ export type LessonInput = {
   content?: LessonContentJson | null
   lesson_date?: string | null
 }
+
+export type GradeColumnType = "number" | "text" | "attendance"
+
+export type GradeColumn = {
+  id: string
+  name: string
+  type: GradeColumnType
+}
+
+export type GradeRow = {
+  id: string
+  name: string
+  cells: Record<string, string | number | null>
+}
+
+export type Gradebook = {
+  id: string
+  class_id: string
+  teacher_id: string
+  name: string
+  columns: GradeColumn[]
+  rows: GradeRow[]
+  created_at: string
+  updated_at: string | null
+}
+
+export type Board = {
+  id: string
+  teacher_id: string
+  class_id: string | null
+  title: string
+  data: Record<string, unknown>
+  created_at: string
+  updated_at: string | null
+}

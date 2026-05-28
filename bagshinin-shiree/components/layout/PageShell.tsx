@@ -16,7 +16,7 @@ export function PageShell({ grades, title, children }: PageShellProps) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-paper">
+    <div className="min-h-screen bg-[var(--bg-paper)]">
       <Sidebar grades={grades} open={open} onClose={() => setOpen(false)} />
       <div className="md:pl-64">
         <Header title={title} onMenuClick={() => setOpen(true)} />

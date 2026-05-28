@@ -196,17 +196,17 @@ export function LessonForm({ mode, grades, initial, defaultGradeId }: LessonForm
           onDrop={handleDrop}
           onClick={() => inputRef.current?.click()}
           className={cn(
-            "flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed bg-white px-6 py-8 text-center transition-colors",
+            "flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed bg-[var(--card-bg)] px-6 py-8 text-center transition-colors",
             dragging
               ? "border-accent-orange bg-accent-orange/5"
-              : "border-primary text-ink/70 hover:bg-primary-soft/15"
+              : "border-primary text-[var(--text-muted)] hover:bg-primary-soft/15"
           )}
         >
           <Upload className="mb-2 h-6 w-6 text-primary" />
           <div className="text-sm font-medium text-primary-deep">
             Файл чирж тавих эсвэл сонгоно уу
           </div>
-          <div className="mt-1 text-xs text-ink/50">
+          <div className="mt-1 text-xs text-[var(--text-muted)]">
             JPG, PNG, WEBP, PDF, PPT, PPTX
           </div>
           <input
@@ -251,7 +251,7 @@ export function LessonForm({ mode, grades, initial, defaultGradeId }: LessonForm
         <button
           type="button"
           onClick={() => router.back()}
-          className="inline-flex h-11 items-center justify-center rounded-lg border border-primary-soft px-5 text-sm font-medium text-primary-deep hover:bg-primary-soft/30 sm:w-auto"
+          className="inline-flex h-11 items-center justify-center rounded-lg border border-[var(--border-soft)] px-5 text-sm font-medium text-primary-deep dark:text-primary-soft hover:bg-primary-soft/30 dark:hover:bg-primary-soft/10 sm:w-auto"
         >
           Цуцлах
         </button>
