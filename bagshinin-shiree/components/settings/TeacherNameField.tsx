@@ -14,6 +14,8 @@ export function TeacherNameField() {
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    // localStorage-оос анхны утгыг зөвхөн client дээр, mount дээр уншина.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setName(window.localStorage.getItem(KEY) ?? "Ану багш")
     setLoaded(true)
   }, [])

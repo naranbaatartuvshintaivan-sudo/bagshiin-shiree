@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, Pencil } from "lucide-react"
+import { ArrowLeft, Gamepad2, Pencil, Plus } from "lucide-react"
 
 import { PageWrapper } from "@/components/layout/PageWrapper"
 import { Badge } from "@/components/ui/badge"
@@ -11,12 +11,17 @@ import { formatMongolianDate } from "@/lib/date"
 import { formatClassName } from "@/lib/utils"
 import { getLessonById } from "@/lib/supabase/queries"
 import { getFilePublicUrl } from "@/lib/supabase/storage"
+import { getActivitiesByLesson } from "@/lib/supabase/activities"
+import { getTemplateMeta } from "@/lib/activities/registry"
 
 export default async function LessonPage(props: {
   params: Promise<{ id: string }>
 }) {
   const { id } = await props.params
-  const lesson = await getLessonById(id)
+  const [lesson, activities] = await Promise.all([
+    getLessonById(id),
+    getActivitiesByLesson(id),
+  ])
   if (!lesson) notFound()
 
   const dateLabel = formatMongolianDate(lesson.lesson_date || lesson.created_at)
@@ -83,6 +88,56 @@ export default async function LessonPage(props: {
               />
             </section>
           )}
+
+          <section className="space-y-2">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+                Дасгал / Тоглоом
+              </h2>
+              <Link
+                href={`/activities/new?lesson_id=${lesson.id}`}
+                className="inline-flex items-center gap-1 rounded-lg border border-dashed border-primary px-2.5 py-1.5 text-xs font-medium text-primary hover:bg-primary-soft/20"
+              >
+                <Plus className="h-3.5 w-3.5" />
+                Дасгал нэмэх
+              </Link>
+            </div>
+            {activities.length === 0 ? (
+              <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-[var(--border-soft)] bg-[var(--card-bg)] p-6 text-center">
+                <Gamepad2 className="h-7 w-7 text-[var(--text-muted)]" />
+                <p className="text-sm text-[var(--text-muted)]">
+                  Энэ хичээлд дасгал байхгүй байна.
+                </p>
+              </div>
+            ) : (
+              <ul className="divide-y divide-[var(--border-soft)] rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)]">
+                {activities.map((a) => {
+                  const meta = getTemplateMeta(a.template)
+                  const Icon = meta.icon
+                  return (
+                    <li key={a.id}>
+                      <Link
+                        href={`/activities/${a.id}`}
+                        className="flex items-center gap-3 p-3 hover:bg-primary-soft/20 dark:hover:bg-primary-soft/10"
+                      >
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-deep">
+                          <Icon className="h-4 w-4" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-sm font-medium text-[var(--text-ink)]">
+                            {a.title}
+                          </span>
+                          <span className="text-xs text-[var(--text-muted)]">
+                            {meta.name}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </section>
         </article>
       </div>
     </PageWrapper>

@@ -11,12 +11,15 @@ import {
   getRecentLessons,
   getStats,
 } from "@/lib/supabase/queries"
+import { getRecentActivities } from "@/lib/supabase/activities"
+import { getTemplateMeta } from "@/lib/activities/registry"
 
 export default async function DashboardPage() {
-  const [grades, recent, stats] = await Promise.all([
+  const [grades, recent, stats, recentActivities] = await Promise.all([
     getGradesWithCounts(),
     getRecentLessons(5),
     getStats(),
+    getRecentActivities(4),
   ])
 
   return (
@@ -91,6 +94,47 @@ export default async function DashboardPage() {
             </ul>
           )}
         </section>
+
+        {recentActivities.length > 0 && (
+          <section>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-primary-deep">
+                Сүүлийн дасгалууд
+              </h2>
+              <Link
+                href="/activities"
+                className="text-xs font-medium text-primary hover:underline"
+              >
+                Бүгдийг харах
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {recentActivities.map((a) => {
+                const meta = getTemplateMeta(a.template)
+                const Icon = meta.icon
+                return (
+                  <Link
+                    key={a.id}
+                    href={`/activities/${a.id}`}
+                    className="flex items-center gap-3 rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-4 transition-all hover:border-primary hover:shadow-sm"
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-deep">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-semibold text-[var(--text-ink)]">
+                        {a.title}
+                      </span>
+                      <span className="text-xs text-[var(--text-muted)]">
+                        {meta.name}
+                      </span>
+                    </span>
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        )}
       </div>
 
       <Link

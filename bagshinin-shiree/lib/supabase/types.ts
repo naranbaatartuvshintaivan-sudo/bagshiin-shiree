@@ -89,3 +89,97 @@ export type Board = {
   created_at: string
   updated_at: string | null
 }
+
+// ──────────────────────────────────────────────────────────────────────────
+// Интерактив дасгал/тоглоом (Wordwall маягийн загварууд)
+// ──────────────────────────────────────────────────────────────────────────
+
+export type ActivityTemplate =
+  | "match_up"
+  | "quiz"
+  | "flash_cards"
+  | "speaking_cards"
+  | "spin_wheel"
+  | "group_sort"
+  | "complete_sentence"
+  | "find_match"
+  | "unjumble"
+  | "anagram"
+  | "matching_pairs"
+  | "open_box"
+
+// Хос-д суурилсан (Match up, Matching pairs, Find match, Flash cards, Open box)
+export type PairItem = { id: string; term: string; match: string; image?: string }
+
+// Quiz / Find match
+export type QuizQuestion = {
+  id: string
+  question: string
+  answers: { id: string; text: string; correct: boolean }[]
+}
+
+// Group sort
+export type SortGroup = { id: string; name: string; items: string[] }
+
+// Өгүүлбэр (Complete sentence, Unjumble, Anagram)
+export type SentenceItem = { id: string; text: string; blanks?: string[] }
+
+// Энгийн жагсаалт (Spin wheel, Speaking cards)
+export type ListItem = { id: string; text: string }
+
+export type ActivityContent = {
+  pairs?: PairItem[]
+  questions?: QuizQuestion[]
+  groups?: SortGroup[]
+  sentences?: SentenceItem[]
+  items?: ListItem[]
+}
+
+// content түлхүүрүүдийн нэр — registry болон хөрвүүлэлтэд ашиглана
+export type ContentKey = keyof ActivityContent
+
+export type ActivitySettings = {
+  timer?: boolean
+  shuffle?: boolean
+  showScore?: boolean
+}
+
+export type Activity = {
+  id: string
+  teacher_id: string
+  class_id: string | null
+  lesson_id: string | null
+  template: ActivityTemplate
+  title: string
+  content: ActivityContent
+  settings: ActivitySettings
+  created_at: string
+  updated_at: string | null
+}
+
+export type ActivityInput = {
+  template: ActivityTemplate
+  title: string
+  content?: ActivityContent
+  settings?: ActivitySettings
+  class_id?: string | null
+  lesson_id?: string | null
+}
+
+export type ActivityAttempt = {
+  id: string
+  activity_id: string
+  player_name: string | null
+  score: number | null
+  total: number | null
+  duration_ms: number | null
+  created_at: string
+}
+
+export type ActivityAttemptInput = {
+  activity_id: string
+  player_name?: string | null
+  score?: number | null
+  total?: number | null
+  duration_ms?: number | null
+}

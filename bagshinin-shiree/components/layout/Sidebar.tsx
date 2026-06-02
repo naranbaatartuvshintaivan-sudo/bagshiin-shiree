@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   BookOpen,
+  Gamepad2,
   GraduationCap,
   Home,
   PenTool,
@@ -45,6 +46,12 @@ const NAV: NavItem[] = [
     label: "Самбар",
     icon: PenTool,
     isActive: (p) => p === "/boards" || p.startsWith("/board/"),
+  },
+  {
+    href: "/activities",
+    label: "Дасгал / Тоглоом",
+    icon: Gamepad2,
+    isActive: (p) => p === "/activities" || p.startsWith("/activities/"),
   },
   {
     href: "/settings",

@@ -11,6 +11,8 @@ export function ThemeToggle() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    // next-themes-ийн hydration-ы стандарт загвар — зөвхөн mount дээр нэг удаа.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
 
